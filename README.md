@@ -1,0 +1,1 @@
+Rock paper scissors project created for The Odin Project Web 101 course.
