@@ -21,30 +21,27 @@ function computerPlay() {
 function playRound(x){
     if (x.toLowerCase() == "rock") {
         if (computerSelection == "Rock") {
-            return("Tie")
+            return("Tie");
         } else if (computerSelection == "Paper") {
-            return("You Lose")
-            playerSelection = prompt ("Rock, Paper or Scissors?");
+            return("You Lose");
         } else {
-            return("You Win")
-            playerSelection = prompt ("Rock, Paper or Scissors?");
+            return("You Win");
         }
     } else if (x.toLowerCase() == "paper") {
         if (computerSelection == "Rock") {
-            return("You Win")
+            return("You Win");
         } else if (computerSelection == "Paper") {
-            return("Tie")
+            return("Tie");
         } else {
-            return("You Lose")
-
+            return("You Lose");
         }
     } else (x.toLowerCase() == "scissors"); 
         if (computerSelection == "Rock") {
-            return("You Lose")
+            return("You Lose");
         } else if (computerSelection == "Paper") {
-            return("You Win")
+            return("You Win");
         } else {
-            return("Tie")
+            return("Tie");
         }
 }
 function game() {
@@ -54,8 +51,8 @@ function game() {
     var computerScore = 0
 
     while (i <= rounds) { 
-        playerSelection = prompt ("Rock, Paper or Scissors?");
-        computerSelection = computerPlay()
+        playerSelection = prompt("Rock, Paper or Scissors?");
+        computerSelection = computerPlay();
         result = (playRound(playerSelection));
         if (result == "You Win") {
             playerScore++
@@ -66,14 +63,14 @@ function game() {
         i++;
     }    
     if (playerScore > computerScore) {
-        console.log("Congratulations! You win!\nFinal Score: You: " + playerScore + " Computer: " + computerScore)
+        console.log("Congratulations! You win!\nFinal Score: You: " + playerScore + " Computer: " + computerScore);
     } else if (playerScore < computerScore) {
-        console.log("Damn! You lose!\nFinal Score: You: " + playerScore + " Computer: " + computerScore)
+        console.log("Damn! You lose!\nFinal Score: You: " + playerScore + " Computer: " + computerScore);
     } else  {
-        console.log("It's a tie!\nFinal Score: You: " + playerScore + " Computer: " + computerScore)
+        console.log("It's a tie!\nFinal Score: You: " + playerScore + " Computer: " + computerScore);
     }       
 }
-game()
+game();
 
 
   </script>
