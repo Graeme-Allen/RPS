@@ -4,9 +4,51 @@
     <title>Rock Paper Scissors</title>
 </head>
 <body>
+<div id="buttons">
+    <button type="button" id="rock" onclick="selectWeapon('Rock')">Rock</button>
+    <button type="button" id="paper" onclick="selectWeapon('Paper')">Paper</button>
+    <button type="button" id="scissors" onclick="selectWeapon('Scissors')">Scissors</button>
+</div>
+<div id="roundInfo" style="display: none;">
+    <h3><strong>Round </strong> <span id="noOfRound"></span></h3>
+    <p><strong>You:</strong> <span id="playerChoice"></span></p>
+    <p><strong>Computer:</strong> <span id="compChoice"></span></p>
+    <p><strong>Result:</strong> <span id="result"></span></p>
+    <h3>Score</h3>
+    <p><strong>You:</strong> <span id="playerScore"></span><strong> - Computer:</strong> <span id="computerScore"></span> </p>
+    <div id="result"></div>
+</div>
+<div id="finalRes" style="display: none;">
+    <h2><span id="finalResult"></span></h2>
+    <button type="button" id="reset" onclick="reset()">Reset</button>
+</div>
+
     <script>
-        //Rock Paper Scissors Game
-        //Computer makes (random) selection
+        // Rock Paper Scissors Game
+
+        function reset() {
+            playerScore = 0
+            computerScore = 0
+            round = 1
+            computerSelection = ""
+            compChoice = ""
+            playerSelection = ""
+            playerChoice = ""
+            result = ""
+            document.getElementById("buttons").style.display = 'inline';
+            document.getElementById("roundInfo").style.display = 'none';
+            document.getElementById("finalRes").style.display = 'none';
+        }
+        var playerScore = 0
+        var computerScore = 0
+        var round = 1
+        // Player makes selection
+        function selectWeapon(x) {
+            playerSelection = x;
+            game(round);
+            round++;
+        }
+        // Computer makes (random) selection
         function computerPlay() {
             randomNumber = Math.random();
             if (randomNumber <= (1/3)){
@@ -17,7 +59,7 @@
                 return("Scissors");
             }
         }
-        //Individual round
+        // Individual round
         function playRound(x){
             if (x.toLowerCase() == "rock") {
                 if (computerSelection == "Rock") {
@@ -44,15 +86,9 @@
                     return("Tie");
                 }
         }
-        //Main game function
-        function game() {
-            var rounds = 5                                                   //change number of rounds here
-            var i = 1
-            var playerScore = 0
-            var computerScore = 0
-
-            while (i <= rounds) { 
-                playerSelection = prompt("Rock, Paper or Scissors?");
+        // Main game function
+        function game(x) {
+                let round = x
                 computerSelection = computerPlay();
                 result = (playRound(playerSelection));
                 if (result == "You Win") {
@@ -60,18 +96,40 @@
                 } else if (result == "You Lose") {
                     computerScore++
                 }
-                console.log("Round " + i + ": " + result + "\nYou - " + playerSelection.toUpperCase() + ", Computer - " + computerSelection.toUpperCase() + "\nScore: You - " + playerScore + ", Computer " + computerScore)
-                i++;
-            }    
+                const resultInfo = ("Round " + round + ": You - " + playerSelection + ", Computer - " + computerSelection +
+                        "\nScore: You - " + playerScore + ", Computer " + computerScore);
+                if (playerScore < 5 && computerScore < 5) { 
+                    displayRound(round, playerSelection, computerSelection, result, playerScore, computerScore);        
+                    console.log (resultInfo);
+                } else {
+                    displayFinalRound(round, playerSelection, computerSelection, result, playerScore, computerScore);
+            }
+        }
+        // Display
+        function displayRound(n, playerChoice, compChoice, result, playerScore, computerScore) {
+            const container = document.querySelector('#playerChoice');
+            document.getElementById("roundInfo").style.display = 'inline';
+            document.getElementById("noOfRound").textContent = n;
+            document.getElementById("playerChoice").textContent = playerChoice;
+            document.getElementById("compChoice").textContent = compChoice;
+            document.getElementById("result").textContent = result;
+            document.getElementById("playerScore").textContent = playerScore;
+            document.getElementById("computerScore").textContent = computerScore;
+        }
+        // Display winner
+        function displayFinalRound(n, playerChoice, compChoice, result, playerScore, computerScore) {
+            const container = document.querySelector('#playerChoice');
+            document.getElementById("buttons").style.display = 'none';
+            document.getElementById("roundInfo").style.display = 'none';
+            document.getElementById("finalRes").style.display = 'inline';
             if (playerScore > computerScore) {
-                console.log("Congratulations! You win!\nFinal Score: You: " + playerScore + " Computer: " + computerScore);
+                document.getElementById("finalResult").textContent = "Congratulations! You win! Final Score: You: " + playerScore + " Computer: " + computerScore;
             } else if (playerScore < computerScore) {
-                console.log("Damn! You lose!\nFinal Score: You: " + playerScore + " Computer: " + computerScore);
+                document.getElementById("finalResult").textContent = "Damn! You lose! Final Score: You: " + playerScore + " Computer: " + computerScore;
             } else {
-                console.log("It's a tie!\nFinal Score: You: " + playerScore + " Computer: " + computerScore);
+                document.getElementById("finalResult").textContent  = "It's a tie! Final Score: You: " + playerScore + " Computer: " + computerScore;
             }       
         }
-        game();
     </script>
 </body>
 </html>
